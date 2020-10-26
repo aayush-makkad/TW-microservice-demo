@@ -1,0 +1,42 @@
+version: "3.8"
+services: 
+    mongodb-catalogue :
+        container_name: mongodb-catalogue
+        image: mongo
+        ports: 
+            - "27027:27017"
+        volumes: 
+            - "db-volumne:/data/db"
+
+    catalogue-service :
+        container_name: catalogue-service
+        image: docker.io/library/catalogue:0.0.1-SNAPSHOT
+        ports:
+            - "8445:8444"
+
+    mongodb-orders :
+        container_name: mongodb-orders
+        image: mongo
+        ports: 
+            - "27028:27017"
+        volumes: 
+            - "db-volumne-orders:/data/db"
+
+    orders-service :
+        container_name: orders-service
+        image: docker.io/library/orders:0.0.1-SNAPSHOT
+        ports:
+            - "443:8443"
+    nginx-proxy :
+        container_name: nginx-proxy
+        image: nginx
+        ports: 
+            - "80:80"
+volumes: 
+    db-volumne:
+        external: false
+    db-volumne-orders:
+        external: false
+
+
+
